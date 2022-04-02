@@ -4,7 +4,9 @@
   "description": "API allows user to do a reservation",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p tsconfig.json",
+    "start": "exit 1",
+    "test": "jest"
   },
   "author": "Lucas Rodrigues",
   "license": "ISC",
