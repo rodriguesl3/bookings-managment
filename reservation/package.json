@@ -2,10 +2,10 @@
   "name": "restaurant-booking",
   "version": "1.0.0",
   "description": "API allows user to do a reservation",
-  "main": "index.js",
+  "main": "/dist/src/server.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "exit 1",
+    "start": "node ./dist/src/server.js",
     "test": "jest"
   },
   "author": "Lucas Rodrigues",
