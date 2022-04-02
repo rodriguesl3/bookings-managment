@@ -4,7 +4,9 @@
   "description": " APIs that allow a restaurant owner to manage bookings",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p tsconfig.json",
+    "start": "node ./dist/src/server.js",
+    "test": "jest"
   },
   "author": "Lucas Rodrigues",
   "license": "ISC",
@@ -27,6 +29,7 @@
     "@types/koa-bodyparser": "^4.3.7",
     "@types/koa-logger": "^3.1.2",
     "@types/koa-router": "^7.4.4",
+    "@types/koa2-cors": "^2.0.2",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
     "eslint": "^8.12.0",
