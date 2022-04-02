@@ -4,10 +4,10 @@ module.exports = {
 	modulePathIgnorePatterns: ['<rootDir>/node_modules', '<rootDir>/__mocks__'],
 	roots: ['<rootDir>/__tests__'],
 	transform: {
-		'^.+\\.tsx?$': 'ts-jest',
+		'^.+\\.ts$': 'ts-jest',
 	},
 	testEnvironment: 'node',
 	testPathIgnorePatterns: ['/node_modules/'],
-	testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
-	moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+	testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.ts$',
+	moduleFileExtensions: ['ts', 'js', 'json', 'node'],
 };
