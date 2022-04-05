@@ -24,6 +24,24 @@ export class ReservationService implements IReservationService {
 
 		const reservationAvailable = calculateAvailability(restaurant, reservation ?? []);
 
-		return reservationAvailable.map((reservation: Reservation) => new ReservationViewModel(reservation));
+		return reservationAvailable;
+	}
+
+	async addReservation(restaurantId: string, from: number, to: number): Promise<string> {
+		const [restaurant, reservation] = await Promise.all([
+			this.restaurantRepository.getById<Restaurant>(restaurantId),
+			this.reservationRepository.getReservationByDate(restaurantId, from, to),
+		]);
+
+		if (restaurant?.tables === reservation?.length) {
+			// TODO: dispatch message to Queue
+			throw new Error('time slot is full for this time');
+		}
+
+		return this.reservationRepository.addRegister<Reservation>({
+			from: from,
+			to: to,
+			restaurantId,
+		});
 	}
 }

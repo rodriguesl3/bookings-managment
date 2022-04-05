@@ -23,9 +23,9 @@ export class MongoRepository implements IMongoRepository {
 		return collection.findOne({ id }) as Promise<T | null>;
 	}
 
-	async addRegister<T>(document: T): Promise<void> {
+	async addRegister<T>(document: T): Promise<string> {
 		const collection = await this.getConnection();
-		await collection.insertOne(document);
-		return;
+		const response = await collection.insertOne(document);
+		return response.insertedId.toJSON();
 	}
 }
