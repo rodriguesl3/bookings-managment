@@ -58,21 +58,25 @@ describe('calculateAvailability', () => {
 				from: todayUTC.set({ hour: 13, minute: 0, second: 0, millisecond: 0 }).toMillis(),
 				to: todayUTC.set({ hour: 14, minute: 0, second: 0, millisecond: 0 }).toMillis(),
 				restaurantId: 'some-id',
+				id: '1',
 			},
 			{
 				from: todayUTC.set({ hour: 13, minute: 0, second: 0, millisecond: 0 }).toMillis(),
 				to: todayUTC.set({ hour: 14, minute: 0, second: 0, millisecond: 0 }).toMillis(),
 				restaurantId: 'some-id',
+				id: '2',
 			},
 			{
 				from: todayUTC.set({ hour: 14, minute: 0, second: 0, millisecond: 0 }).toMillis(),
 				to: todayUTC.set({ hour: 15, minute: 0, second: 0, millisecond: 0 }).toMillis(),
 				restaurantId: 'some-id',
+				id: '3',
 			},
 			{
 				from: todayUTC.set({ hour: 14, minute: 0, second: 0, millisecond: 0 }).toMillis(),
 				to: todayUTC.set({ hour: 15, minute: 0, second: 0, millisecond: 0 }).toMillis(),
 				restaurantId: 'some-id-2',
+				id: '4',
 			},
 		];
 

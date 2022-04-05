@@ -1,4 +1,4 @@
-import { Collection, MongoClient, MongoClientOptions, WithId, WithoutId } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 import { config } from '../config';
 import { IMongoRepository } from './IMongoRepository';
 
@@ -23,9 +23,9 @@ export class MongoRepository implements IMongoRepository {
 		return collection.findOne({ id }) as Promise<T | null>;
 	}
 
-	async addRegister<T>(document: T): Promise<string> {
+	async addRegister<T extends { id: string }>(document: T): Promise<string> {
 		const collection = await this.getConnection();
-		const response = await collection.insertOne(document);
+		const response = await collection.insertOne({ ...document, _id: new ObjectId(document.id) });
 		return response.insertedId.toJSON();
 	}
 }

@@ -7,7 +7,7 @@ export class ReservationRepository extends MongoRepository implements IReservati
 		super('reservations');
 	}
 
-	async getReservationByDate(restaurantId: string, from: number, to: number): Promise<Reservation[] | null> {
+	async getReservationByDate({ restaurantId, from, to }: Reservation): Promise<Reservation[] | null> {
 		const collection = await this.getConnection();
 
 		return collection.find<Reservation>({ restaurantId, from, to }).toArray();

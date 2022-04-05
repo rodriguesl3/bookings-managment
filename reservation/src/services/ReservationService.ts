@@ -5,11 +5,15 @@ import { calculateAvailability } from './helpers/calculateAvailability';
 import { IReservationRepository } from '../repositories/IReservationRepository';
 import { IRestaurantRepository } from '../repositories/IRestaurantRepository';
 import { IReservationService } from './IReservationService';
+import { IRedisRepository } from '../repositories/RedisRepository';
+import { ObjectId } from 'mongodb';
+import { ReservationStatus, ReservationStatusViewModel } from '../domain/ViewModel/ReservationStatusViewModel';
 
 export class ReservationService implements IReservationService {
 	constructor(
 		private reservationRepository: IReservationRepository,
 		private restaurantRepository: IRestaurantRepository,
+		private redisRepository: IRedisRepository,
 	) {}
 
 	async getAvailability(restaurantId: string): Promise<ReservationViewModel[] | undefined> {
@@ -27,21 +31,23 @@ export class ReservationService implements IReservationService {
 		return reservationAvailable;
 	}
 
-	async addReservation(restaurantId: string, from: number, to: number): Promise<string> {
+	async addReservation(newReservation: Reservation): Promise<ReservationStatusViewModel> {
 		const [restaurant, reservation] = await Promise.all([
-			this.restaurantRepository.getById<Restaurant>(restaurantId),
-			this.reservationRepository.getReservationByDate(restaurantId, from, to),
+			this.restaurantRepository.getById<Restaurant>(newReservation.restaurantId),
+			this.reservationRepository.getReservationByDate(newReservation),
 		]);
 
 		if (restaurant?.tables === reservation?.length) {
-			// TODO: dispatch message to Queue
-			throw new Error('time slot is full for this time');
+			const id = new ObjectId().toJSON();
+			const response = await this.redisRepository.dispatchMessage({ ...newReservation, id });
+			if (response) {
+				return { reservationId: id, status: ReservationStatus.Wait };
+			}
+			throw new Error('Error to queue reservation');
 		}
 
-		return this.reservationRepository.addRegister<Reservation>({
-			from: from,
-			to: to,
-			restaurantId,
-		});
+		const insertedId = await this.reservationRepository.addRegister<Reservation>(newReservation);
+
+		return { reservationId: insertedId, status: ReservationStatus.Reserved };
 	}
 }
