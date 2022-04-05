@@ -3,8 +3,8 @@ import { config } from '../config';
 import { IMongoRepository } from './IMongoRepository';
 
 export class MongoRepository implements IMongoRepository {
-	private server?: string = config.mongoServer;
-	private database?: string = config.mongoDatabase ?? '';
+	private server: string = config.mongoServer;
+	private database: string = config.mongoDatabase;
 
 	constructor(private collection: string) {}
 

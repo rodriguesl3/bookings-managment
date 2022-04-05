@@ -1,4 +1,5 @@
 import { createClient } from 'redis';
+import { config } from '../config';
 
 export interface IRedisRepository {
 	dispatchMessage<T>(message: T): Promise<number>;
@@ -9,7 +10,7 @@ export class RedisRepository implements IRedisRepository {
 
 	private async getConnection() {
 		const client = createClient({
-			url: 'redis://127.0.0.1:6379',
+			url: config.redisServer,
 		});
 		await client.connect();
 		return client;
