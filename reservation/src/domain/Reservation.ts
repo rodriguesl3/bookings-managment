@@ -1,7 +1,6 @@
 export interface Reservation {
-	to: Date;
-	from: Date;
+	to: number;
+	from: number;
 	restaurantId: string;
 	id?: string;
-	tables: number;
 }

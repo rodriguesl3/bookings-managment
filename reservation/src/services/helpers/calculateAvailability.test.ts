@@ -1,24 +1,38 @@
 import { Reservation } from '../../domain/Reservation';
 import { Restaurant } from '../../domain/Restaurant';
-import { formatDate } from '../../test-helpers/formatDateHelper';
+
 import { calculateAvailability } from './calculateAvailability';
+
+import { DateTime } from 'luxon';
+
+const formatParam = "yyyy'-'MM'-'dd'T'HH':'mm':'ss':'SSS";
 
 describe('calculateAvailability', () => {
 	it('returns 1 time slots available', () => {
 		const reservationListMock: Reservation[] = [
 			{
-				from: formatDate(new Date().toDateString(), 13),
-				to: formatDate(new Date().toDateString(), 14),
+				from: DateTime.utc().set({ hour: 13, minute: 0, second: 0, millisecond: 0 }).toMillis(),
+				to: DateTime.utc().set({ hour: 14, minute: 0, second: 0, millisecond: 0 }).toMillis(),
 				restaurantId: 'some-id',
-				tables: 4,
-				id: '123123',
+				id: 'some-id-1',
 			},
 			{
-				from: formatDate(new Date().toDateString(), 14),
-				to: formatDate(new Date().toDateString(), 15),
+				from: DateTime.utc().set({ hour: 13, minute: 0, second: 0, millisecond: 0 }).toMillis(),
+				to: DateTime.utc().set({ hour: 14, minute: 0, second: 0, millisecond: 0 }).toMillis(),
 				restaurantId: 'some-id',
-				tables: 4,
-				id: '123123',
+				id: 'some-id-2',
+			},
+			{
+				from: DateTime.utc().set({ hour: 14, minute: 0, second: 0, millisecond: 0 }).toMillis(),
+				to: DateTime.utc().set({ hour: 15, minute: 0, second: 0, millisecond: 0 }).toMillis(),
+				restaurantId: 'some-id',
+				id: 'some-id-1',
+			},
+			{
+				from: DateTime.utc().set({ hour: 14, minute: 0, second: 0, millisecond: 0 }).toMillis(),
+				to: DateTime.utc().set({ hour: 15, minute: 0, second: 0, millisecond: 0 }).toMillis(),
+				restaurantId: 'some-id',
+				id: 'some-id-2',
 			},
 		];
 
@@ -26,30 +40,39 @@ describe('calculateAvailability', () => {
 			open: 12,
 			close: 15,
 			id: 'some-id',
-			tables: 4,
+			tables: 2,
 		};
 
 		const result = calculateAvailability(restaurant, reservationListMock);
 
 		expect(result).toHaveLength(1);
-		expect(result[0].from).toEqual<Date>(formatDate(new Date().toDateString(), 12));
-		expect(result[0].to).toEqual<Date>(formatDate(new Date().toDateString(), 13));
-		expect(result[0].restaurantId).toEqual('some-id');
+		expect(DateTime.fromFormat(result![0].from, formatParam).hour).toEqual(12);
+		expect(DateTime.fromFormat(result![0].to, formatParam).hour).toEqual(13);
 	});
 
 	it('returns 7 time slots available and not contains time slots already reserved', () => {
+		const todayUTC = DateTime.utc();
+
 		const reservationListMock: Reservation[] = [
 			{
-				from: new Date('2022-04-03T13:00:00'),
-				to: new Date('2022-04-03T14:00:00'),
+				from: todayUTC.set({ hour: 13, minute: 0, second: 0, millisecond: 0 }).toMillis(),
+				to: todayUTC.set({ hour: 14, minute: 0, second: 0, millisecond: 0 }).toMillis(),
 				restaurantId: 'some-id',
-				tables: 2,
 			},
 			{
-				from: new Date('2022-04-03T14:00:00'),
-				to: new Date('2022-04-03T15:00:00'),
+				from: todayUTC.set({ hour: 13, minute: 0, second: 0, millisecond: 0 }).toMillis(),
+				to: todayUTC.set({ hour: 14, minute: 0, second: 0, millisecond: 0 }).toMillis(),
 				restaurantId: 'some-id',
-				tables: 2,
+			},
+			{
+				from: todayUTC.set({ hour: 14, minute: 0, second: 0, millisecond: 0 }).toMillis(),
+				to: todayUTC.set({ hour: 15, minute: 0, second: 0, millisecond: 0 }).toMillis(),
+				restaurantId: 'some-id',
+			},
+			{
+				from: todayUTC.set({ hour: 14, minute: 0, second: 0, millisecond: 0 }).toMillis(),
+				to: todayUTC.set({ hour: 15, minute: 0, second: 0, millisecond: 0 }).toMillis(),
+				restaurantId: 'some-id-2',
 			},
 		];
 
@@ -62,12 +85,12 @@ describe('calculateAvailability', () => {
 
 		const result = calculateAvailability(restaurant, reservationListMock);
 
-		expect(result).toHaveLength(6);
+		expect(result).toHaveLength(4);
 		expect(result).not.toEqual(
 			expect.arrayContaining([
 				{
-					from: new Date('2022-04-03T14:00:00'),
-					to: new Date('2022-04-03T15:00:00'),
+					from: todayUTC.set({ hour: 14, minute: 0, second: 0, millisecond: 0 }).toMillis(),
+					to: todayUTC.set({ hour: 15, minute: 0, second: 0, millisecond: 0 }).toMillis(),
 				},
 			]),
 		);
