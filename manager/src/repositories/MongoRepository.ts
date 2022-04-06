@@ -34,7 +34,7 @@ export class MongoRepository implements IMongoRepository {
 		return response.insertedId.toJSON();
 	}
 
-	async updateRegister<T extends { id: string }>(document: T): Promise<string> {
+	async updateRegister<T extends { id: string }>(document: T): Promise<boolean> {
 		const collection = await this.getConnection();
 		const primaryKey = new ObjectId(document.id);
 		const response = await collection.updateOne(
@@ -42,7 +42,7 @@ export class MongoRepository implements IMongoRepository {
 			{ $set: { ...document, _id: primaryKey } },
 			{ upsert: true },
 		);
-		return response.upsertedId.toJSON();
+		return response.acknowledged;
 	}
 
 	async deleteRegister<T extends { id: string }>(document: T): Promise<boolean> {
