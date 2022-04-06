@@ -13,11 +13,13 @@ export default class RestaurantController {
 	}
 
 	private buildRoutes() {
-		this.router.get(`${this.path}`, this.getRestaurants);
 		this.router.get(`${this.path}/:id`, this.getRestaurantById);
 
 		this.router.put(`${this.path}/:id`, this.updateRestaurant);
-		this.router.post(`${this.path}/restaurants`, this.addRestaurants);
+		this.router.del(`${this.path}/:id`, this.deleteRepository);
+
+		this.router.get(`${this.path}`, this.getRestaurants);
+		this.router.post(`${this.path}`, this.addRestaurants);
 	}
 
 	private async getRestaurants(context: Context) {
@@ -39,7 +41,7 @@ export default class RestaurantController {
 
 		const response = await restaurantService.addRestaurant(restaurant);
 
-		context.body = response;
+		context.body = { restaurantId: response };
 		context.status = 200;
 	}
 
@@ -67,5 +69,20 @@ export default class RestaurantController {
 
 		context.body = response;
 		context.status = 200;
+	}
+
+	private async deleteRepository(context: Context) {
+		const restaurantRepo = new RestaurantRepository();
+		const restaurantService = new RestaurantService(restaurantRepo);
+		const restaurantId = context.params.id;
+
+		const response = await restaurantService.deleteRestaurant(restaurantId);
+
+		if (response) {
+			context.status = 204;
+			return;
+		}
+
+		context.status = 404;
 	}
 }

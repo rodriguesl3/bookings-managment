@@ -45,9 +45,9 @@ export class MongoRepository implements IMongoRepository {
 		return response.acknowledged;
 	}
 
-	async deleteRegister<T extends { id: string }>(document: T): Promise<boolean> {
+	async deleteRegister<T extends { id: string }>(id: string): Promise<boolean> {
 		const collection = await this.getConnection();
-		const primaryKey = new ObjectId(document.id);
+		const primaryKey = new ObjectId(id);
 
 		const response = await collection.deleteOne({ _id: primaryKey });
 		return response.deletedCount > 0;

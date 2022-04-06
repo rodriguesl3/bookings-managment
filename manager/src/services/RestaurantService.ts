@@ -19,4 +19,8 @@ export class RestaurantService implements IRestaurantService {
 	updateRestaurant(restaurant: Restaurant): Promise<boolean> {
 		return this.restaurantRepository.updateRegister<Restaurant>(restaurant);
 	}
+
+	deleteRestaurant(restaurantId: string): Promise<boolean> {
+		return this.restaurantRepository.deleteRegister<Restaurant>(restaurantId);
+	}
 }
