@@ -10,6 +10,7 @@ describe('ReservationService', () => {
 		getAll: jest.fn(),
 		getById: jest.fn(),
 		updateRegister: jest.fn(),
+		getByFilter: jest.fn(),
 	};
 
 	const redisRepository: jest.Mocked<IRedisRepository> = {
