@@ -16,12 +16,31 @@ export default class ReservationController implements IController {
 	}
 
 	private buildRoutes() {
-		this.router.get(`${this.path}/restaurants/:id/availability`, this.getReservationById);
-		this.router.post(`${this.path}/restaurants/:id/reservations`, this.addReservation);
-		this.router.post(`${this.path}/restaurants/:id/reservations/wait-list`, this.dispatchWaitList);
+		this.router.get(`${this.path}/restaurants/:id/availability`, this.getAvailability);
+		this.router.post(`${this.path}/restaurants/:id`, this.addReservation);
+		this.router.post(`${this.path}/restaurants/:id/wait-list`, this.dispatchWaitList);
+		this.router.put(`${this.path}/:reservationId/restaurants/:id`, this.updateReservation);
 	}
 
-	private async getReservationById(context: Context) {
+	private async updateReservation(context: Context) {
+		const restaurantId = context.params.id;
+		const reservationId = context.params.reservationId;
+		const { from, to } = context.request.body;
+
+		const reservationRepo = new ReservationRepository();
+		const restaurantRepo = new RestaurantRepository();
+		const redisRepo = new RedisRepository('wait_list');
+		const service = new ReservationService(reservationRepo, restaurantRepo, redisRepo);
+
+		const reservation = new Reservation(from, to, restaurantId, reservationId);
+
+		const response = await service.updateReservation(reservation);
+
+		context.status = 200;
+		context.body = response;
+	}
+
+	private async getAvailability(context: Context) {
 		//TODO: Improve Dependency Injection
 		const reservationRepo = new ReservationRepository();
 		const restaurantRepo = new RestaurantRepository();

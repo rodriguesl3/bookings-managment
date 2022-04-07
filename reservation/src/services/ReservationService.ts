@@ -50,4 +50,19 @@ export class ReservationService implements IReservationService {
 
 		return { reservationId: insertedId, status: ReservationStatus.Reserved };
 	}
+
+	async updateReservation(newReservation: Reservation): Promise<ReservationStatusViewModel> {
+		const [restaurant, reservation] = await Promise.all([
+			this.restaurantRepository.getById<Restaurant>(newReservation.restaurantId),
+			this.reservationRepository.getReservationByDate(newReservation),
+		]);
+
+		if (restaurant?.tables === reservation?.length) {
+			return { reservationId: newReservation.id, status: ReservationStatus.Overbooked };
+		}
+
+		const response = this.reservationRepository.upsertReservation(newReservation);
+
+		return { reservationId: newReservation.id, status: ReservationStatus.Reserved };
+	}
 }

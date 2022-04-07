@@ -31,6 +31,6 @@ export class ReservationRepository extends MongoRepository implements IReservati
 			},
 		);
 
-		return response.upsertedId.toJSON();
+		return response.upsertedId?.toJSON() ?? reservation.id;
 	}
 }
