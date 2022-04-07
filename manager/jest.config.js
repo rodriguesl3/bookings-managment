@@ -1,13 +1,7 @@
 module.exports = {
-	verbose: true,
-	collectCoverage: true,
-	modulePathIgnorePatterns: ['<rootDir>/node_modules', '<rootDir>/__mocks__'],
-	roots: ['<rootDir>/__tests__'],
+	roots: ['<rootDir>/src'],
+	testMatch: ['**/__tests__/**/*.+(ts|tsx|js)', '**/?(*.)+(spec|test).+(ts|tsx|js)'],
 	transform: {
-		'^.+\\.ts$': 'ts-jest',
+		'^.+\\.(ts|tsx)$': 'ts-jest',
 	},
-	testEnvironment: 'node',
-	testPathIgnorePatterns: ['/node_modules/'],
-	testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.ts$',
-	moduleFileExtensions: ['ts', 'js', 'json', 'node'],
 };
