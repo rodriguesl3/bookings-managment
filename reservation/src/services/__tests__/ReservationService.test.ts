@@ -4,7 +4,7 @@ import { ReservationService } from '../ReservationService';
 import { DateTime } from 'luxon';
 import { IRedisRepository } from '../../repositories/RedisRepository';
 
-const formatParam = "yyyy'-'MM'-'dd'T'HH':'mm':'ss':'SSS";
+const formatParam = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
 
 const reservationRepoMock: jest.Mocked<IReservationRepository> = {
 	getById: jest.fn(),

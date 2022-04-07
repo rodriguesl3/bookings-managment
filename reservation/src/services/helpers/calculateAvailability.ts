@@ -22,8 +22,8 @@ export function calculateAvailability(restaurant: Restaurant, reservationList: R
 
 		if (!reservation || tablesAvailable > 0) {
 			result.push({
-				from: from.toFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss':'SSS"),
-				to: to.toFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss':'SSS"),
+				from: from.toFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"),
+				to: to.toFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"),
 				tablesAvailable,
 			});
 		}

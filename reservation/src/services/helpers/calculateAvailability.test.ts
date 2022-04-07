@@ -5,7 +5,7 @@ import { calculateAvailability } from './calculateAvailability';
 
 import { DateTime } from 'luxon';
 
-const formatParam = "yyyy'-'MM'-'dd'T'HH':'mm':'ss':'SSS";
+const formatParam = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
 
 describe('calculateAvailability', () => {
 	it('returns 1 time slots available', () => {
