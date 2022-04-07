@@ -19,10 +19,16 @@ In docs folder contains postman collection to be imported and be tested.
 ## Improvements to be done
 
 It was done in a short deadline and I mapped some topics that could be improved for both projects:
-request and response validation (using Yup maybe?)
-improve dependency injection (I had some issues using InversifyJS with koa)
+
+Request and response validation (using Yup maybe?)
+
+Improve dependency injection (I had some issues using InversifyJS with koa)
+
 Maybe add an ORM for Mongo (this project is quite simple for it).
-Improve logs and not handled exceptions
+
+Improve logs for not handled exceptions
+
+Validate resiliency in http communication Manager API -> Reservation API
 
 ---
 
