@@ -1,0 +1,25 @@
+version: '3'
+services:
+  manager:
+    restart: always
+    build: ./manager
+    ports:
+      - 8081:8081
+  reservation:
+    restart: always
+    build: ./reservation
+    ports:
+      - 8080:8080
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+  queue:
+    image: redis
+    ports:
+      - 6379:6379
+volumes:
+  mongodb:
+

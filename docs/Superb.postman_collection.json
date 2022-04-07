@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "4a4ce368-4f14-4c38-a3f9-9ce7ae483fd0",
+		"name": "Superb",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Reservation",
+			"item": [
+				{
+					"name": "Reservation - add wait list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"2022-04-05T09:00:00.000Z\",\r\n    \"to\": \"2022-04-05T10:00:00.000Z\",\r\n    \"id\":\"6248c09e21f3b0c74f670762\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reservations/restaurants/6248c09e21f3b0c74f670762/wait-list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservations",
+								"restaurants",
+								"6248c09e21f3b0c74f670762",
+								"wait-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reservation - add reservation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"2022-04-07T09:00:00.000Z\",\r\n    \"to\": \"2022-04-07T10:00:00.000Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reservations/restaurants/6248c09e21f3b0c74f670762",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservations",
+								"restaurants",
+								"6248c09e21f3b0c74f670762"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reservation - get availability",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reservations/restaurants/6248c09e21f3b0c74f670762/availability",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservations",
+								"restaurants",
+								"6248c09e21f3b0c74f670762",
+								"availability"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reservation - update reservation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"2022-04-07T10:00:00\",\r\n    \"to\": \"2022-04-07T11:00:00\",\r\n    \"restaurantId\": \"6248c09e21f3b0c74f670762\",\r\n    \"id\": \"624f0c1c941fb6cd488d84e2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reservations/624f0c1c941fb6cd488d84e2/restaurants/6248c09e21f3b0c74f670762",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservations",
+								"624f0c1c941fb6cd488d84e2",
+								"restaurants",
+								"6248c09e21f3b0c74f670762"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Manager",
+			"item": [
+				{
+					"name": "Manager - get restaurants",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"open\": 9,\r\n    \"close\": 21,\r\n    \"id\": \"6248c09e21f3b0c74f670762\",\r\n    \"tables\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/restaurants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manager - add restaurants",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"open\": 9,\r\n    \"close\": 21,\r\n    \"tables\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/restaurants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manager - delete restaurants",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"6248c09e21f3b0c74f670762\",\r\n    \"open\": 9,\r\n    \"close\": 21,\r\n    \"id\": \"6248c09e21f3b0c74f670762\",\r\n    \"tables\": 21\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/restaurants/6248c09e21f3b0c74f670762",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"restaurants",
+								"6248c09e21f3b0c74f670762"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manager - update restaurants",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"6248c09e21f3b0c74f670762\",\r\n    \"open\": 9,\r\n    \"close\": 21,\r\n    \"id\": \"6248c09e21f3b0c74f670762\",\r\n    \"tables\": 21\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/restaurants/6248c09e21f3b0c74f670762",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"restaurants",
+								"6248c09e21f3b0c74f670762"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manager - delete reservations",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/reservations/624f0e8dd276f332ca59bf9e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"reservations",
+								"624f0e8dd276f332ca59bf9e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manager - get all reservations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"open\": 9,\r\n    \"close\": 21,\r\n    \"id\": \"6248c09e21f3b0c74f670762\",\r\n    \"tables\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/reservations/restaurants/6248c09e21f3b0c74f670762",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"reservations",
+								"restaurants",
+								"6248c09e21f3b0c74f670762"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manager - update reservation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"2022-04-07T15:00:00\",\r\n    \"to\": \"2022-04-07T16:00:00\",\r\n    \"restaurantId\": \"6248c09e21f3b0c74f670762\",\r\n    \"id\": \"624f0c1c941fb6cd488d84e2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/reservations/624f0c1c941fb6cd488d84e2/restaurants/6248c09e21f3b0c74f670762",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"reservations",
+								"624f0c1c941fb6cd488d84e2",
+								"restaurants",
+								"6248c09e21f3b0c74f670762"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Manager - add reservation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"2022-04-07T09:00:00.000Z\",\r\n    \"to\": \"2022-04-07T10:00:00.000Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/reservations/restaurants/6248c09e21f3b0c74f670762",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"reservations",
+								"restaurants",
+								"6248c09e21f3b0c74f670762"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
