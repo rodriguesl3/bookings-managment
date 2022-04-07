@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from 'mongodb';
+import { Filter, MongoClient, ObjectId } from 'mongodb';
 import { config } from '../config';
 import { IMongoRepository } from './IMongoRepository';
 
@@ -51,5 +51,10 @@ export class MongoRepository implements IMongoRepository {
 
 		const response = await collection.deleteOne({ _id: primaryKey });
 		return response.deletedCount > 0;
+	}
+
+	async getByFilter<T>(filter: Filter<T>): Promise<T[] | null> {
+		const collection = await this.getConnection();
+		return collection.find<T>(filter).toArray();
 	}
 }
